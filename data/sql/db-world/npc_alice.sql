@@ -1,3 +1,16 @@
+codex/add-npc_alice_start.cpp-with-creaturescript
+SET @NPC := 91000;
+SET @GOSSIP_MENU := 91000;
+SET @GOSSIP_TEXT := 91000;
+
+DELETE FROM `gossip_menu` WHERE `entry`=@GOSSIP_MENU;
+INSERT INTO `gossip_menu` (`entry`, `text_id`) VALUES (@GOSSIP_MENU, @GOSSIP_TEXT);
+
+DELETE FROM `npc_text` WHERE `ID`=@GOSSIP_TEXT;
+INSERT INTO `npc_text` (`ID`, `text0_0`) VALUES (@GOSSIP_TEXT, 'Seid ihr bereit den Kampf zu beginnen?');
+
+UPDATE `creature_template` SET `gossip_menu_id`=@GOSSIP_MENU, `npcflag`=`npcflag`|1, `ScriptName`='npc_alice_start' WHERE `entry`=@NPC;
+
 -- NPC and Boss templates for Smaragdsanktum
 SET @START_NPC := 90000;
 SET @BOSS := 90001;
@@ -13,3 +26,4 @@ DELETE FROM `creature_model_info` WHERE `modelid` IN (31000,31001);
 INSERT INTO `creature_model_info` (`modelid`,`bounding_radius`,`combat_reach`,`gender`) VALUES
 (31000,0.3519,1.5,1),
 (31001,1.5,4.0,2);
+master
