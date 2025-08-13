@@ -1,0 +1,48 @@
+#
+# Copyright (C) 2016+ AzerothCore <www.azerothcore.org>, released under GNU AGPL v3 license: https://github.com/azerothcore/azerothcore-wotlk/blob/master/LICENSE-AGPL3
+#
+
+[worldserver]
+
+########################################
+# Alice module configuration
+########################################
+#
+#    Alice.Enable
+#        Description: Enable Alice module
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+Alice.Enable = 1
+
+#    Alice.Debug
+#        Description: Enable debug logging for Alice module
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+Alice.Debug = 0
+
+#    Alice.MeteorStrikeTimer
+#        Description: Timer for Meteor Strike in milliseconds
+#        Default:     30000
+#
+Alice.MeteorStrikeTimer = 30000
+
+#    Alice.IcyGripTimer
+#        Description: Timer for Icy Grip in milliseconds
+#        Default:     45000
+#
+Alice.IcyGripTimer = 45000
+
+#    Alice.SlimeRootTimer
+#        Description: Timer for Slime Root in milliseconds
+#        Default:     60000
+#
+Alice.SlimeRootTimer = 60000
+
+#    Alice.BerserkTimer
+#        Description: Timer for Berserk in milliseconds
+#        Default:     900000
+#
+Alice.BerserkTimer = 900000
+
