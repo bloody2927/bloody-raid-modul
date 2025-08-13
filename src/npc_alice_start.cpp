@@ -1,3 +1,15 @@
+codex/modify-cmakelists.txt-for-new-scripts
+/*
+ * Placeholder script for NPC Alice start
+ */
+
+#include "ScriptMgr.h"
+
+void AddSC_npc_alice_start()
+{
+}
+
+
 #include "Creature.h"
 #include "InstanceScript.h"
 #include "Map.h"
@@ -69,3 +81,4 @@ public:
 };
 
 void AddSC_npc_alice_start() { new npc_alice_start(); }
+master
