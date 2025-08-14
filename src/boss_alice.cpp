@@ -51,14 +51,19 @@ struct boss_alice : public BossAI
         events.Reset();
     }
 
-    void EnterCombat(Unit* /*who*/) override
+    void JustEngagedWith(Unit* who) override
     {
-        _EnterCombat();
+        BossAI::JustEngagedWith(who);
         events.SetPhase(PHASE_ONE);
         events.ScheduleEvent(EVENT_METEOR_STRIKE, 5000, 0, PHASE_ONE);
-        events.ScheduleEvent(EVENT_ICY_GRIP, 15000, 0, PHASE_ONE);
-        events.ScheduleEvent(EVENT_AOE_DAMAGE, 10000, 0, PHASE_ONE);
-        events.ScheduleEvent(EVENT_SLIME_ROOT, 20000, 0, PHASE_ONE);
+        events.ScheduleEvent(EVENT_ICY_GRIP,      15000, 0, PHASE_ONE);
+        events.ScheduleEvent(EVENT_AOE_DAMAGE,    10000, 0, PHASE_ONE);
+        events.ScheduleEvent(EVENT_SLIME_ROOT,    20000, 0, PHASE_ONE);
+    }
+
+    void KilledUnit(Unit* /*victim*/) override
+    {
+        me->Yell("Another one falls before my power!", LANG_UNIVERSAL);
     }
 
     void JustDied(Unit* /*killer*/) override
@@ -115,15 +120,15 @@ struct boss_alice : public BossAI
                 case EVENT_PHASE_TWO:
                     events.SetPhase(PHASE_TWO);
                     events.ScheduleEvent(EVENT_AOE_DAMAGE, 10000, 0, PHASE_TWO);
-                    events.ScheduleEvent(EVENT_GAS_BOMB, 15000, 0, PHASE_TWO);
+                    events.ScheduleEvent(EVENT_GAS_BOMB,  15000, 0, PHASE_TWO);
                     events.ScheduleEvent(EVENT_SUMMON_SLIME, 20000, 0, PHASE_TWO);
                     break;
                 case EVENT_PHASE_THREE:
                     events.SetPhase(PHASE_THREE);
-                    events.ScheduleEvent(EVENT_BERSERK, 1000, 0, PHASE_THREE);
+                    events.ScheduleEvent(EVENT_BERSERK,     1000, 0, PHASE_THREE);
                     events.ScheduleEvent(EVENT_METEOR_STRIKE, 5000, 0, PHASE_THREE);
-                    events.ScheduleEvent(EVENT_ICY_GRIP, 15000, 0, PHASE_THREE);
-                    events.ScheduleEvent(EVENT_GAS_BOMB, 20000, 0, PHASE_THREE);
+                    events.ScheduleEvent(EVENT_ICY_GRIP,    15000, 0, PHASE_THREE);
+                    events.ScheduleEvent(EVENT_GAS_BOMB,    20000, 0, PHASE_THREE);
                     break;
             }
         }
