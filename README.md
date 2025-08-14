@@ -23,9 +23,14 @@ mysql -u <user> -p world < data/sql/db-world/spells_override.sql
 mysql -u <user> -p world < data/sql/db-world/loot_tables.sql
 ```
 
+codex/refactor-loader-functions-and-scripts
+This module adds a custom raid encounter to [AzerothCore](https://www.azerothcore.org).
+It targets the **master** branch of AzerothCore and does not require any core modifications.
+
 Replace `world` with the name of your world database.
 
 This module adds a custom raid encounter to [AzerothCore](https://www.azerothcore.org). It targets the **master** branch of AzerothCore and does not require any core modifications.
+master
 
 ## Requirements
 * AzerothCore master branch
@@ -66,4 +71,7 @@ When `MyModule.Enable` is set, a greeting will be sent to players on login. Addi
 
 ## License
 This project is released under the terms of the [GNU AGPL v3](LICENSE).
+codex/refactor-loader-functions-and-scripts
 
+
+master

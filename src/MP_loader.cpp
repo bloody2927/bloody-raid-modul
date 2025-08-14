@@ -15,6 +15,18 @@ master
     AddSC_boss_alice();
     AddSC_instance_smaragdsanktum();
     AddSC_npc_alice_start();
+codex/refactor-loader-functions-and-scripts
+}
+
+// Add all
+// cf. the naming convention
+// https://github.com/azerothcore/azerothcore-wotlk/blob/master/doc/changelog/master.md#how-to-upgrade
+// additionally replace all '-' in the module folder name with '_' here
+void Addmod_bloody_raid_modulScripts()
+{
+    Addbloody_raid_modulScripts();
+}
+
 codex/remove-stray-strings-and-duplicate-includes
 
 }
@@ -26,3 +38,4 @@ void Addmod_bloody_raid_modulScripts()
 master
 }
 
+master

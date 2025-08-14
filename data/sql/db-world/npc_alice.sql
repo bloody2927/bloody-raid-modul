@@ -1,6 +1,10 @@
+codex/refactor-loader-functions-and-scripts
+-- SQL setup for the Alice encounter
+
 codex/remove-stray-strings-and-duplicate-includes
 
 -- SQL data for NPC Alice
+master
 master
 SET @NPC := 91000;
 SET @GOSSIP_MENU := 91000;
@@ -29,7 +33,10 @@ DELETE FROM `creature_model_info` WHERE `modelid` IN (31000,31001);
 INSERT INTO `creature_model_info` (`modelid`,`bounding_radius`,`combat_reach`,`gender`) VALUES
 (31000,0.3519,1.5,1),
 (31001,1.5,4.0,2);
+codex/refactor-loader-functions-and-scripts
+
 codex/remove-stray-strings-and-duplicate-includes
 
 
+master
 master
