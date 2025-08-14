@@ -20,11 +20,12 @@ void AddSC_npc_alice_start()
 
 enum AliceStart {
   NPC_ALICE = 91001,
-
-  ACTION_START_BOSS = GOSSIP_ACTION_INFO_DEF + 1,
-  ACTION_TELEPORT = GOSSIP_ACTION_INFO_DEF + 2,
-
   GOSSIP_TEXT_ID = 91000
+};
+
+enum AliceGossipActions {
+  ACTION_BEGIN_ENCOUNTER = 1,
+  ACTION_TELEPORT_TO_BOSS = 2
 };
 
 static Position const AliceSummonPos = {100.0f, 100.0f, 20.0f, 0.0f};
@@ -37,9 +38,9 @@ public:
   bool OnGossipHello(Player *player, Creature *creature) override {
     player->PrepareGossipMenu(creature);
     player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, "Bosskampf starten",
-                            GOSSIP_SENDER_MAIN, ACTION_START_BOSS);
+                            GOSSIP_SENDER_MAIN, ACTION_BEGIN_ENCOUNTER);
     player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, "Teleport zur Bosskammer",
-                            GOSSIP_SENDER_MAIN, ACTION_TELEPORT);
+                            GOSSIP_SENDER_MAIN, ACTION_TELEPORT_TO_BOSS);
     player->SendGossipMenu(GOSSIP_TEXT_ID, creature->GetGUID());
     return true;
   }
@@ -52,7 +53,7 @@ public:
     player->PlayerTalkClass->ClearMenus();
 
     switch (action) {
-    case ACTION_START_BOSS: {
+    case ACTION_BEGIN_ENCOUNTER: {
       if (InstanceScript *instance = creature->GetInstanceScript()) {
         if (Creature *alice =
                 instance->SummonCreature(NPC_ALICE, AliceSummonPos))
@@ -61,7 +62,7 @@ public:
       creature->DespawnOrUnsummon();
       break;
     }
-    case ACTION_TELEPORT: {
+    case ACTION_TELEPORT_TO_BOSS: {
       if (Map *map = creature->GetMap()) {
         Map::PlayerList const &players = map->GetPlayers();
         for (Map::PlayerList::const_iterator itr = players.begin();
