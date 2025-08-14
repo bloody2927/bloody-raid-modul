@@ -1,9 +1,5 @@
 # Bloody Raid Module
 
-codex/add-sql-files-for-game-world-features
-
-smihjq-codex/add-sql-files-for-game-world-features
-master
 This module adds the Smaragdsanktum raid with custom NPCs, instance data, waypoints, spell tweaks and loot tables.
 
 ## Importing the SQL files
@@ -25,10 +21,6 @@ mysql -u <user> -p world < data/sql/db-world/waypoints.sql
 mysql -u <user> -p world < data/sql/db-world/spells_override.sql
 mysql -u <user> -p world < data/sql/db-world/loot_tables.sql
 ```
-
-Replace `world` with the name of your world database.
-codex/add-sql-files-for-game-world-features
-
 
 This module adds a custom raid encounter to [AzerothCore](https://www.azerothcore.org).
 It targets the **master** branch of AzerothCore and does not require any core modifications.
@@ -72,6 +64,3 @@ When `MyModule.Enable` is set, a greeting will be sent to players on login. Addi
 
 ## License
 This project is released under the terms of the [GNU AGPL v3](LICENSE).
-
-master
-master
