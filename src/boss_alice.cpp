@@ -1,12 +1,6 @@
-codex/modify-cmakelists.txt-for-new-scripts
 /*
  * Placeholder script for boss Alice encounter
  */
-
-#include "ScriptMgr.h"
-
-void AddSC_boss_alice()
-{
 
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
@@ -62,9 +56,9 @@ struct boss_alice : public BossAI
         _EnterCombat();
         events.SetPhase(PHASE_ONE);
         events.ScheduleEvent(EVENT_METEOR_STRIKE, 5000, 0, PHASE_ONE);
-        events.ScheduleEvent(EVENT_ICY_GRIP, 15000, 0, PHASE_ONE);
-        events.ScheduleEvent(EVENT_AOE_DAMAGE, 10000, 0, PHASE_ONE);
-        events.ScheduleEvent(EVENT_SLIME_ROOT, 20000, 0, PHASE_ONE);
+        events.ScheduleEvent(EVENT_ICY_GRIP,      15000, 0, PHASE_ONE);
+        events.ScheduleEvent(EVENT_AOE_DAMAGE,    10000, 0, PHASE_ONE);
+        events.ScheduleEvent(EVENT_SLIME_ROOT,    20000, 0, PHASE_ONE);
     }
 
     void JustDied(Unit* /*killer*/) override
@@ -121,15 +115,15 @@ struct boss_alice : public BossAI
                 case EVENT_PHASE_TWO:
                     events.SetPhase(PHASE_TWO);
                     events.ScheduleEvent(EVENT_AOE_DAMAGE, 10000, 0, PHASE_TWO);
-                    events.ScheduleEvent(EVENT_GAS_BOMB, 15000, 0, PHASE_TWO);
+                    events.ScheduleEvent(EVENT_GAS_BOMB,  15000, 0, PHASE_TWO);
                     events.ScheduleEvent(EVENT_SUMMON_SLIME, 20000, 0, PHASE_TWO);
                     break;
                 case EVENT_PHASE_THREE:
                     events.SetPhase(PHASE_THREE);
-                    events.ScheduleEvent(EVENT_BERSERK, 1000, 0, PHASE_THREE);
+                    events.ScheduleEvent(EVENT_BERSERK,     1000, 0, PHASE_THREE);
                     events.ScheduleEvent(EVENT_METEOR_STRIKE, 5000, 0, PHASE_THREE);
-                    events.ScheduleEvent(EVENT_ICY_GRIP, 15000, 0, PHASE_THREE);
-                    events.ScheduleEvent(EVENT_GAS_BOMB, 20000, 0, PHASE_THREE);
+                    events.ScheduleEvent(EVENT_ICY_GRIP,    15000, 0, PHASE_THREE);
+                    events.ScheduleEvent(EVENT_GAS_BOMB,    20000, 0, PHASE_THREE);
                     break;
             }
         }
@@ -141,6 +135,5 @@ struct boss_alice : public BossAI
 void AddSC_boss_alice()
 {
     RegisterCreatureAI(boss_alice);
-master
 }
 
