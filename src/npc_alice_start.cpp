@@ -10,6 +10,7 @@
 #include "ScriptMgr.h"
 #include "ScriptedGossip.h"
 
+codex/remove-stray-strings-and-duplicate-includes
 enum AliceStart
 {
     NPC_ALICE      = 91001,
@@ -20,6 +21,25 @@ enum AliceGossipActions
 {
     ACTION_START_BOSS = GOSSIP_ACTION_INFO_DEF + 1,
     ACTION_TELEPORT   = GOSSIP_ACTION_INFO_DEF + 2
+
+codex/cleanup-and-refactor-boss-ai-code
+enum AliceStart
+{
+    NPC_ALICE        = 91001,
+    ACTION_START_BOSS = GOSSIP_ACTION_INFO_DEF + 1,
+    ACTION_TELEPORT   = GOSSIP_ACTION_INFO_DEF + 2,
+    GOSSIP_TEXT_ID    = 91000
+
+enum AliceStart {
+  NPC_ALICE = 91001,
+  GOSSIP_TEXT_ID = 91000
+master
+};
+
+enum AliceGossipActions {
+  ACTION_BEGIN_ENCOUNTER = 1,
+  ACTION_TELEPORT_TO_BOSS = 2
+master
 };
 
 static Position const AliceSummonPos = {100.0f, 100.0f, 20.0f, 0.0f};
@@ -29,6 +49,7 @@ class npc_alice_start : public CreatureScript
 {
 public:
     npc_alice_start() : CreatureScript("npc_alice_start") { }
+codex/remove-stray-strings-and-duplicate-includes
 
     bool OnGossipHello(Player* player, Creature* creature) override
     {
@@ -39,9 +60,33 @@ public:
         return true;
     }
 
+
+codex/cleanup-and-refactor-boss-ai-code
+    bool OnGossipHello(Player* player, Creature* creature) override
+    {
+        player->PrepareGossipMenu(creature);
+        player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, "Bosskampf starten", GOSSIP_SENDER_MAIN, ACTION_START_BOSS);
+        player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, "Teleport zur Bosskammer", GOSSIP_SENDER_MAIN, ACTION_TELEPORT);
+        player->SendGossipMenu(GOSSIP_TEXT_ID, creature->GetGUID());
+        return true;
+    }
+
+  bool OnGossipHello(Player *player, Creature *creature) override {
+    player->PrepareGossipMenu(creature);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, "Bosskampf starten",
+                            GOSSIP_SENDER_MAIN, ACTION_BEGIN_ENCOUNTER);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, "Teleport zur Bosskammer",
+                            GOSSIP_SENDER_MAIN, ACTION_TELEPORT_TO_BOSS);
+    player->SendGossipMenu(GOSSIP_TEXT_ID, creature->GetGUID());
+    return true;
+  }
+master
+master
+
     bool OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action) override
     {
         if (sender != GOSSIP_SENDER_MAIN)
+codex/remove-stray-strings-and-duplicate-includes
             return true;
 
         ClearGossipMenuFor(player);
@@ -72,6 +117,62 @@ public:
                 break;
             }
         }
+
+            return false;
+
+        player->PlayerTalkClass->ClearMenus();
+codex/cleanup-and-refactor-boss-ai-code
+        switch (action)
+        {
+            case ACTION_START_BOSS:
+            {
+                if (InstanceScript* instance = creature->GetInstanceScript())
+                {
+                    if (Creature* alice = instance->SummonCreature(NPC_ALICE, AliceSummonPos))
+                        instance->DoZoneInCombat(alice);
+                }
+                creature->DespawnOrUnsummon();
+                break;
+            }
+            case ACTION_TELEPORT:
+            {
+                if (Map* map = creature->GetMap())
+                {
+                    Map::PlayerList const& players = map->GetPlayers();
+                    for (Map::PlayerList::const_iterator itr = players.begin(); itr != players.end(); ++itr)
+                        if (Player* plr = itr->GetSource())
+                            plr->TeleportTo(creature->GetMapId(), BossRoomPos.GetPositionX(), BossRoomPos.GetPositionY(), BossRoomPos.GetPositionZ(), BossRoomPos.GetOrientation());
+                }
+                break;
+            }
+        }
+
+    switch (action) {
+    case ACTION_BEGIN_ENCOUNTER: {
+      if (InstanceScript *instance = creature->GetInstanceScript()) {
+        if (Creature *alice =
+                instance->SummonCreature(NPC_ALICE, AliceSummonPos))
+          instance->DoZoneInCombat(alice);
+      }
+      creature->DespawnOrUnsummon();
+      break;
+    }
+    case ACTION_TELEPORT_TO_BOSS: {
+      if (Map *map = creature->GetMap()) {
+        Map::PlayerList const &players = map->GetPlayers();
+        for (Map::PlayerList::const_iterator itr = players.begin();
+             itr != players.end(); ++itr)
+          if (Player *plr = itr->GetSource())
+            plr->TeleportTo(creature->GetMapId(), BossRoomPos.GetPositionX(),
+                            BossRoomPos.GetPositionY(),
+                            BossRoomPos.GetPositionZ(),
+                            BossRoomPos.GetOrientation());
+      }
+      break;
+    }
+    }
+master
+master
 
         return true;
     }

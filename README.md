@@ -9,8 +9,9 @@ Import the SQL files under `data/sql/db-world` into your AzerothCore world datab
 1. `npc_alice.sql` – registers the starter NPC and boss creature templates.
 2. `instance_smaragdsanktum.sql` – registers the map, instance template and encounter data.
 3. `waypoints.sql` – defines movement paths for the encounter.
-4. `spells_override.sql` – applies custom spell radius, damage and duration tweaks.
-5. `loot_tables.sql` – adds boss loot entries.
+4. `04_spawns.sql` – places the NPCs and gameobjects inside the instance.
+5. `spells_override.sql` – applies custom spell radius, damage and duration tweaks.
+6. `loot_tables.sql` – adds boss loot entries.
 
 Example commands:
 
