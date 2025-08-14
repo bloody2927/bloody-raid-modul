@@ -1,12 +1,6 @@
-codex/modify-cmakelists.txt-for-new-scripts
 /*
  * Placeholder script for boss Alice encounter
  */
-
-#include "ScriptMgr.h"
-
-void AddSC_boss_alice()
-{
 
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
@@ -141,6 +135,5 @@ struct boss_alice : public BossAI
 void AddSC_boss_alice()
 {
     RegisterCreatureAI(boss_alice);
-master
 }
 
