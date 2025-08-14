@@ -1,12 +1,6 @@
-codex/modify-cmakelists.txt-for-new-scripts
 /*
  * Placeholder script for boss Alice encounter
  */
-
-#include "ScriptMgr.h"
-
-void AddSC_boss_alice()
-{
 
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
@@ -57,14 +51,19 @@ struct boss_alice : public BossAI
         events.Reset();
     }
 
-    void EnterCombat(Unit* /*who*/) override
+    void JustEngagedWith(Unit* who) override
     {
-        _EnterCombat();
+        BossAI::JustEngagedWith(who);
         events.SetPhase(PHASE_ONE);
         events.ScheduleEvent(EVENT_METEOR_STRIKE, 5000, 0, PHASE_ONE);
         events.ScheduleEvent(EVENT_ICY_GRIP, 15000, 0, PHASE_ONE);
         events.ScheduleEvent(EVENT_AOE_DAMAGE, 10000, 0, PHASE_ONE);
         events.ScheduleEvent(EVENT_SLIME_ROOT, 20000, 0, PHASE_ONE);
+    }
+
+    void KilledUnit(Unit* /*victim*/) override
+    {
+        me->Yell("Another one falls before my power!", LANG_UNIVERSAL);
     }
 
     void JustDied(Unit* /*killer*/) override
@@ -141,6 +140,4 @@ struct boss_alice : public BossAI
 void AddSC_boss_alice()
 {
     RegisterCreatureAI(boss_alice);
-master
 }
-
