@@ -1,6 +1,4 @@
-codex/add-sql-files-for-game-world-features
-
-codex/add-npc_alice_start.cpp-with-creaturescript
+-- SQL data for NPC Alice
 SET @NPC := 91000;
 SET @GOSSIP_MENU := 91000;
 SET @GOSSIP_TEXT := 91000;
@@ -13,7 +11,6 @@ INSERT INTO `npc_text` (`ID`, `text0_0`) VALUES (@GOSSIP_TEXT, 'Seid ihr bereit 
 
 UPDATE `creature_template` SET `gossip_menu_id`=@GOSSIP_MENU, `npcflag`=`npcflag`|1, `ScriptName`='npc_alice_start' WHERE `entry`=@NPC;
 
-master
 -- NPC and Boss templates for Smaragdsanktum
 SET @START_NPC := 90000;
 SET @BOSS := 90001;
@@ -29,7 +26,3 @@ DELETE FROM `creature_model_info` WHERE `modelid` IN (31000,31001);
 INSERT INTO `creature_model_info` (`modelid`,`bounding_radius`,`combat_reach`,`gender`) VALUES
 (31000,0.3519,1.5,1),
 (31001,1.5,4.0,2);
-codex/add-sql-files-for-game-world-features
-
-master
-master
