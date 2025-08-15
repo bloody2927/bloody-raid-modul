@@ -1,0 +1,6 @@
+EmeraldSanctum.Enable = 1
+EmeraldSanctum.Berserk            = 600
+EmeraldSanctum.IcyGrip_Interval   = 45
+EmeraldSanctum.Cold_Interval      = 30
+EmeraldSanctum.SlimeRoot_Interval = 60
+EmeraldSanctum.Meteor_Interval    = 35
